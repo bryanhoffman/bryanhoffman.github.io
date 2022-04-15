@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3 Branching and Conditionals | PHP For The Web: Enough to be Dangerous</title>
+  <meta name="description" content="A primer on PHP with an emphasis on building for the web." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3 Branching and Conditionals | PHP For The Web: Enough to be Dangerous" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3 Branching and Conditionals | PHP For The Web: Enough to be Dangerous" />
+  
+  <meta name="twitter:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+<meta name="author" content="Bryan Hoffman" />
+
+
+<meta name="date" content="2022-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="printing.html"/>
+<link rel="next" href="loops.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PHP For The Web</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Prerequisites<span></span></a></li>
+<li class="chapter" data-level="2" data-path="printing.html"><a href="printing.html"><i class="fa fa-check"></i><b>2</b> Printing in the Terminal and on the Web<span></span></a></li>
+<li class="chapter" data-level="3" data-path="branching.html"><a href="branching.html"><i class="fa fa-check"></i><b>3</b> Branching and Conditionals<span></span></a></li>
+<li class="chapter" data-level="4" data-path="loops.html"><a href="loops.html"><i class="fa fa-check"></i><b>4</b> Loops<span></span></a></li>
+<li class="chapter" data-level="5" data-path="functions-and-recursion.html"><a href="functions-and-recursion.html"><i class="fa fa-check"></i><b>5</b> Functions and Recursion<span></span></a></li>
+<li class="chapter" data-level="6" data-path="GET.html"><a href="GET.html"><i class="fa fa-check"></i><b>6</b> HTTP GET Variables<span></span></a></li>
+<li class="chapter" data-level="7" data-path="Forms-and-Files.html"><a href="Forms-and-Files.html"><i class="fa fa-check"></i><b>7</b> Forms and Files<span></span></a></li>
+<li class="chapter" data-level="8" data-path="SESSION.html"><a href="SESSION.html"><i class="fa fa-check"></i><b>8</b> SESSION<span></span></a></li>
+<li class="chapter" data-level="9" data-path="Next.html"><a href="Next.html"><i class="fa fa-check"></i><b>9</b> What Next?<span></span></a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PHP For The Web: Enough to be Dangerous</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="branching" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">3</span> Branching and Conditionals<a href="branching.html#branching" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Let’s open up our text editor and create a new file starting with “&lt;?php” and save it to a file with a name like branching_example.php or similar.</p>
+<p>PHP has some <strong>operators</strong>, and only a few will be intuitive. When doing math, “+”, “-”, “*“, and”/” probably behave like you’d guess. There’s an operator “%” called “modulo” that is really useful. If you remember remainders, the modulo operator will result in the remainder after division. For example, 7%3 is 1, because 3 goes into 7 twice with 1 as the remainder. 17%4 is also 1, and that’s because 4 goes into 17 four times with 1 as the remainder. Let’s say you have a variable $my_value and you want to see if it’s even or odd. Another way to phrase this is: “does the number have a remainder when divided by 2?” and if the answer is “yes,” that means it’s odd, and if the answer is “no,” that means the number is even. Let’s turn this into code:</p>
+<pre><code>&lt;?php
+
+$my_value = 1; // is it odd or even?
+
+if($my_value%2 != 0 ) { // the number has a remainder when divided by two
+    print(&quot;It is odd!\n&quot;);
+}
+if($my_value%2 == 0 ) { // the number has no remainder when divided by two
+    print(&quot;It is even!\n&quot;);
+}</code></pre>
+<p>The first thing to note is the double slashes “//” which indicate a comment. You can write comments to clarify things for yourself and others who read your code. If you want to make a multi-line comment, use “/*” and “*/” instead of “//” like this:</p>
+<pre><code>&lt;?php 
+
+/*
+ * Here is a line
+ * Here&#39;s another
+ * Wow a third line, and it&#39;s still a single comment?
+ */</code></pre>
+<p>You can put asterisks on all the lines of your comment and line them up vertically to make it look better. Some text editors will do this formatting by default, but formatting it like that is not necessary. The “/*” and “*/” parts are all that’s necessary to comment out multiple lines. This is a nice <strong>debugging</strong> technique.</p>
+<p>The second part to note is the if-statement. This lets us check if something is true and do something if it is. Here’s another example:</p>
+<pre><code>&lt;?php
+
+$this_variable_is_false = false;
+
+if($this_variable_is_false = true) {
+    print(&quot;Will this run?\n&quot;)
+}</code></pre>
+<p>So, what do you think? Will that print statement run? Test it out for yourself.</p>
+<p>The result might surprise you, but let me explain. In the previous example, the expression inside the if-statement’s parentheses used a single equals sign “=” and we’ve seen that a single equals sign is what you use to assign a value to a variable. The program understands it this way, and will assign true to the variable and then the value is true and the part of the if statement inside the curly braces “{ }” is executed. To actually check if the variable is true, we use a different operator than “=” because we don’t want to assign a value to a variable, we want to compare a value to a variable. Instead of the single equals sign, we’ll use a double equals sign “==” as in the first code example in this chapter. That example also used “!=” which will return true when comparing unlike values, or in other words the values are not equal to each other. Using “=” instead of “==” in if-statements is a potential mistake for beginners that’s quite easy to make.</p>
+<p>When a variable contains true or false, it’s called a boolean. This name is an homage to a mathematician, George Boole. If the part of the if-statement in the parentheses evaluates to true, the code in the curly braces executes. Since booleans are true or false, you can write if-statements like this:</p>
+<pre><code>&lt;?php 
+
+$my_boolean = true;
+
+if($my_boolean) {
+    print(&quot;\$my_boolean is true!\n&quot;);
+}</code></pre>
+<p>There are more operators. In the way that “+” and “-” are for adding and subtracting numbers, there are other sorts of operators for doing mathematics with booleans and other data types. Is false plus false, false? According to PHP, false + false is 0. There’s better ways to work with booleans, than “+” and “-” so let’s use them! I’m pleased to introduce “&amp;&amp;” and “||” which can be read as “and” and “or” respectively. And now an example with these operators in use:</p>
+<pre><code>&lt;?php 
+
+if(true &amp;&amp; true) {
+    // code here will run
+}
+
+if(true &amp;&amp; false) {
+    // code here won&#39;t run
+}
+
+if(true || true) {
+    // code here will run
+}
+
+if(true || false) {
+    // code here will run
+}</code></pre>
+<p>An if-statement can contain another if-statement, like so:</p>
+<pre><code>&lt;?php 
+
+$my_integer = -27;
+$my_boolean = true;
+
+if($my_integer &lt; 0) {
+    if($my_boolean) {
+        // do something
+    } 
+}</code></pre>
+<p>An if-statement within another if-statement can be called a <strong>nested</strong> if-statement. In some cases, you might want to use an else-statement. A simple if-statement is like saying “do this under this circumstance” whereas an if-else statement is like “do this under this circumstance, otherwise do that instead.”</p>
+<p>Sometimes, when I’m grocery shopping, I act like a program. To me, there’s nothing like an avocado. I like avocados, and there’s no replacement in my mind suitable for them… but they’re usually pricey. If they’re too pricey, I just don’t get them. But with fruit, I like berries more than apples, but berries are usually pretty expensive. If berries are on sale, I’ll get berries, otherwise I’ll just get apples. Here’s how that would look as some PHP code:</p>
+<pre><code>&lt;?php
+
+if($current_avocado_price &lt; $my_max_avocado_price) {
+    // buy some avocados
+}
+
+if($blueberries_on_sale) {
+    // buy some berries
+} else {
+    // buy some apples
+}</code></pre>
+<p>Let’s start tackling a somewhat common interview challenge. Fizzbuzz is a very simple game that works for any number of players. Someone begins counting at 1, the next person increments the number and says the number unless the number is divisible by three or five. If it’s divisible by three, say fizz, if it’s divisible by five, say buzz, if it is divisible by both, say fizzbuzz. Here’s some PHP code that takes a number and prints the appropriate response as if it were playing fizzbuzz:</p>
+<pre><code>&lt;?php
+
+
+//the number we want to test
+$number_to_test = 25;
+
+// initialize to false by default before testing
+$divisible_by_three = false;
+$divisible_by_five = false;
+
+if($number_to_test % 3 == 0) {
+    $divisible_by_three = true;
+}
+
+if($number_to_test % 5 == 0) {
+    $divisible_by_five = true;
+}
+
+if($divisible_by_three &amp;&amp; $divisible_by_five) {
+    print(&quot;fizzbuzz\n&quot;);
+}
+
+if($divisible_by_three == true &amp;&amp; $divisible_by_five == false) {
+    print(&quot;fizz\n&quot;);
+}
+
+if($divisible_by_three == false &amp;&amp; $divisible_by_five == true) {
+    print(&quot;buzz\n&quot;);
+}
+
+if($divisible_by_three == false &amp;&amp; $divisible_by_five == false) {
+    print($number_to_test.&quot;\n&quot;);
+}</code></pre>
+<p>Exercises:</p>
+<ol style="list-style-type: decimal">
+<li><p>Modify the fizzbuzz example to use if-else statements or nested if-statements. Check your edited version for correctness by trying various values (3, 17, 45, 61, &amp;c.) and checking the output for correctness (fizz, 17, fizzbuzz, 61, &amp;c.). As it’s currently written, all six if-statements are checked everytime the program is run. You can make the program more efficient by using if-else-statements and nested if-statements and reducing how many conditions need to be checked. Thinking about efficiency won’t really matter a whole lot here, but if you are one day running a program billions of times, making it run in half the time could save lots of time and money. Unlike math, correctness isn’t enough. Programming challenges can often be solved in multiple ways that are equally correct. Two methods might be correct, but one might be better because it runs in less time or uses less resources.</p></li>
+<li><p>Using if-statements and the modulo operator, can you write a program that can tell you if a whole number from 1 to 100 is a prime number?</p></li>
+</ol>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="printing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="loops.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["PHP For The Web: Enough to be Dangerous by Bryan Hoffman.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

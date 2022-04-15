@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4 Loops | PHP For The Web: Enough to be Dangerous</title>
+  <meta name="description" content="A primer on PHP with an emphasis on building for the web." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4 Loops | PHP For The Web: Enough to be Dangerous" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4 Loops | PHP For The Web: Enough to be Dangerous" />
+  
+  <meta name="twitter:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+<meta name="author" content="Bryan Hoffman" />
+
+
+<meta name="date" content="2022-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="branching.html"/>
+<link rel="next" href="functions-and-recursion.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PHP For The Web</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Prerequisites<span></span></a></li>
+<li class="chapter" data-level="2" data-path="printing.html"><a href="printing.html"><i class="fa fa-check"></i><b>2</b> Printing in the Terminal and on the Web<span></span></a></li>
+<li class="chapter" data-level="3" data-path="branching.html"><a href="branching.html"><i class="fa fa-check"></i><b>3</b> Branching and Conditionals<span></span></a></li>
+<li class="chapter" data-level="4" data-path="loops.html"><a href="loops.html"><i class="fa fa-check"></i><b>4</b> Loops<span></span></a></li>
+<li class="chapter" data-level="5" data-path="functions-and-recursion.html"><a href="functions-and-recursion.html"><i class="fa fa-check"></i><b>5</b> Functions and Recursion<span></span></a></li>
+<li class="chapter" data-level="6" data-path="GET.html"><a href="GET.html"><i class="fa fa-check"></i><b>6</b> HTTP GET Variables<span></span></a></li>
+<li class="chapter" data-level="7" data-path="Forms-and-Files.html"><a href="Forms-and-Files.html"><i class="fa fa-check"></i><b>7</b> Forms and Files<span></span></a></li>
+<li class="chapter" data-level="8" data-path="SESSION.html"><a href="SESSION.html"><i class="fa fa-check"></i><b>8</b> SESSION<span></span></a></li>
+<li class="chapter" data-level="9" data-path="Next.html"><a href="Next.html"><i class="fa fa-check"></i><b>9</b> What Next?<span></span></a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PHP For The Web: Enough to be Dangerous</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="loops" class="section level1 hasAnchor" number="4">
+<h1><span class="header-section-number">4</span> Loops<a href="loops.html#loops" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Before we get into this section of the text, you need to know how to interrupt the terminal. If a program is running, and you want to exit it, press Ctrl+C, just like you were copying some text. It is possible to write programs that never end. The next code sample is one such program. Save the following code into a file and run it. You’ll need to interrupt the program, otherwise it’ll execute forever! Press Ctrl+C once you’ve had enough.</p>
+<pre><code>&lt;?php
+
+while(true) {
+    print(&quot;A&quot;);
+}</code></pre>
+<p>While-loops have a close relative, the for-loop. The while-loop is very similar to an if-statement. It executes the code in the curly braces when the condition in the parentheses is true. The key difference between an if-statement and a while-loop is that when the program reaches the closing curly brace “}” of a while-loop, it hops back to the top and checks the condition again. This can repeat indefinitely as the prior example demonstrated.</p>
+<p>A for-loop looks like this:</p>
+<pre><code>for($i = 0; i &lt; $max_value; $i++) {
+    // do stuff
+}</code></pre>
+<p>This text will begin omitting “&lt;?php” unless it’s a full file’s contents that is being displayed.</p>
+<p>Let’s break the for-loop down. In the parentheses, we declare and initialize a variable, then comes a conditional, and the last part is a piece of code that gets run with every loop. In the last part, we are simply incrementing and storing the value, so “$i = $i + 1” would have the same effect as “$++” here. If the conditional part evaluates to false, the for-loop stops.</p>
+<p>Sometimes, a certain task feels like a job for a for-loop, and other tasks feel like they’d be best implemented with a while-loop.</p>
+<p>Just like if-statements, loops can be nested. Here’s an example of a nested for-loop that will print a rectangle of asterisks with the dimensions held in the variables $width and $height:</p>
+<pre><code>$width = 10;
+$height = 10;
+
+for($i = 0; $i &lt; $height; $i++) {
+    for($j = 0; $j &lt; $width; $j++) {
+        print(&quot;*&quot;);
+    }
+    print(&quot;\n&quot;);
+}</code></pre>
+<p>Exercises:</p>
+<ol style="list-style-type: decimal">
+<li><p>Modify the fizzbuzz program from the last chapter to use a loop. Have it run from 1 until a maximum value you can set by editing the value of a variable.</p></li>
+<li><p>Use a nested for-loop to print a multiplication table. Try to format it well. Note the symmetry of it. Since 4*8 is equal to 8*4, are we making the computer do more work than it needs to?</p></li>
+<li><p>Can you modify the code that prints a rectangle full of asterisks so that it prints a box instead? With $height = 4 and $width = 5, your code should output:</p></li>
+</ol>
+<pre><code>*****
+*   *
+*   *
+*****</code></pre>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="branching.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="functions-and-recursion.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["PHP For The Web: Enough to be Dangerous by Bryan Hoffman.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

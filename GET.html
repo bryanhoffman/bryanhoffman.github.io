@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6 HTTP GET Variables | PHP For The Web: Enough to be Dangerous</title>
+  <meta name="description" content="A primer on PHP with an emphasis on building for the web." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6 HTTP GET Variables | PHP For The Web: Enough to be Dangerous" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6 HTTP GET Variables | PHP For The Web: Enough to be Dangerous" />
+  
+  <meta name="twitter:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+<meta name="author" content="Bryan Hoffman" />
+
+
+<meta name="date" content="2022-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="functions-and-recursion.html"/>
+<link rel="next" href="Forms-and-Files.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PHP For The Web</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Prerequisites<span></span></a></li>
+<li class="chapter" data-level="2" data-path="printing.html"><a href="printing.html"><i class="fa fa-check"></i><b>2</b> Printing in the Terminal and on the Web<span></span></a></li>
+<li class="chapter" data-level="3" data-path="branching.html"><a href="branching.html"><i class="fa fa-check"></i><b>3</b> Branching and Conditionals<span></span></a></li>
+<li class="chapter" data-level="4" data-path="loops.html"><a href="loops.html"><i class="fa fa-check"></i><b>4</b> Loops<span></span></a></li>
+<li class="chapter" data-level="5" data-path="functions-and-recursion.html"><a href="functions-and-recursion.html"><i class="fa fa-check"></i><b>5</b> Functions and Recursion<span></span></a></li>
+<li class="chapter" data-level="6" data-path="GET.html"><a href="GET.html"><i class="fa fa-check"></i><b>6</b> HTTP GET Variables<span></span></a></li>
+<li class="chapter" data-level="7" data-path="Forms-and-Files.html"><a href="Forms-and-Files.html"><i class="fa fa-check"></i><b>7</b> Forms and Files<span></span></a></li>
+<li class="chapter" data-level="8" data-path="SESSION.html"><a href="SESSION.html"><i class="fa fa-check"></i><b>8</b> SESSION<span></span></a></li>
+<li class="chapter" data-level="9" data-path="Next.html"><a href="Next.html"><i class="fa fa-check"></i><b>9</b> What Next?<span></span></a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PHP For The Web: Enough to be Dangerous</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="GET" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">6</span> HTTP GET Variables<a href="GET.html#GET" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>There is something called the Collatz Conjecture. It’s not known whether it is true or false. Start with any positive integer. If it’s odd, you multiply it by 3 and add 1 to it. If it’s even, you divide it by two. Keep doing this and the Collatz Conjecture claims you’ll always eventually arrive at 1. Let’s see this in action with 5.</p>
+<p>5 is odd. 3*5+1 = 16. 16 is even. 16/2 = 8. 8 is even. 8/2 = 4. 4 is even. 4/2 = 2. 2 is even. 2/2 = 1.</p>
+<p>So, 5 was not a counter example. Let’s code the logic of the Collatz Conjecture before we connect to the web. Our first bit of code:</p>
+<pre><code>&lt;?php
+
+$value = 17;
+
+while($value!=1) {
+    if($value%2==1) {
+        // echo the first part of the statement
+        echo &quot;$value is odd. 3*$value+1 = &quot;;
+        // actually change $value to the new value
+        $value=3*$value+1;
+        // echo the last part with $value update
+        echo &quot;$value\n&quot;;
+    }
+    else {
+        // echo the first part of the statement
+        echo &quot;$value is even. $value/2 = &quot;;
+        // actually change $value to the new value
+        $value=$value/2;
+        // echo the last part with $value update
+        echo &quot;$value\n&quot;;
+    }
+}</code></pre>
+<p>Run it a few times in the console with different values. Everything I’ve tried has gone to 1 after some number of steps. Once you’ve gotten a sense of things, let’s connect to the web. Instead of “$value = 17;” we’re going to replace the code on line 3 with this:</p>
+<pre><code>if(isset($_GET[&quot;value&quot;])) {
+    $value = $_GET[&quot;value&quot;];
+} else {
+    $value = rand(1,100);
+}</code></pre>
+<p>Name your file something like collatz.php and serve it by typing the following in your terminal:</p>
+<p><code>&gt;php -S localhost:8080 collatz.php</code></p>
+<p>In your web browser, head to <a href="http://localhost:8080" class="uri">http://localhost:8080</a> and give it whirl. I’ve set it up so it will generate a random positive integer if one isn’t provided. Things might be looking pretty messy. For web, instead of “\n” we’ll want to use “<br>” the HTML element for break. Replace instances of “\n” with “<br>” and refresh your browser. You’ll end up with a different looking page every time you refresh because it is dynamically generated. Refresh it once more and based on a new random integer, you’ll see another entirely different page.</p>
+<p>We can actually input a number now. In your browser, if you go to the url: <a href="http://localhost:8080?value=81" class="uri">http://localhost:8080?value=81</a> it will run for the value you provided through the URL. Give that a try now. Since we’re utilizing the web now, let’s take advantage. Let’s put a couple lines of code between the if-else-statement handling the $_GET variable and the start of the while-loop. Something like:</p>
+<pre><code>echo &#39;&lt;a href=&quot;/?value=&#39;.($value+1).&#39;&quot;&gt;Try &#39;.($value+1).&#39;&lt;/a&gt; | &#39;;
+echo &quot;&lt;a href=\&quot;/\&quot;&gt;Try another random integer&lt;/a&gt;&lt;br&gt;&quot;;</code></pre>
+<p>Writing combined HTML and PHP like this can be really confusing. You know how “&lt;?php” needs to be at the beginning of our PHP files for a file to execute properly? Now is a good time to show another way to write PHP and HTML together. Take a look at this example file:</p>
+<pre><code>&lt;?php
+
+$value_0 = true;
+$value_foo = &quot;bar&quot;;
+
+// we can close the php tag with and just write plain HTML for a bit
+?&gt;
+
+&lt;h1&gt;Heading 1&lt;/h1&gt;
+&lt;p&gt;This is a paragraph.&lt;/p&gt;
+
+&lt;?php 
+
+// we can begin an if-statement in one PHP block ...
+
+if($value_0) { 
+
+?&gt;
+
+The value of $value_foo is: &lt;?php echo $value_foo; ?&gt;&lt;/p&gt;
+
+&lt;?php 
+
+// ... and end it in another
+
+} 
+
+?&gt;</code></pre>
+<p>Exercises:</p>
+<ol style="list-style-type: decimal">
+<li><p>What happens if you put a very large integer into the Collatz Conjecture example? What happens if you put in a negative integer? What happens if you put in something like “potato”? When writing “real-life” applications, at best, you’ll get bad input from users, and at worst, hackers will attempt to maliciously exploit holes in your application. Can you think of ways you could already improve this example web application?</p></li>
+<li><p>Try to create a multi-lingual site where the language can be passed in as a URL parameter. For example: localhost:8080/?lang=es might load in Spanish, and available languages might be shown as flags that can be clicked.</p></li>
+<li><p>Try and write a choose your own adventure story that works in the browser. You can use page numbers in the URL, or get creative with things like localhost:8080/?you_are=running_away_from_a_troll</p></li>
+</ol>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="functions-and-recursion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="Forms-and-Files.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["PHP For The Web: Enough to be Dangerous by Bryan Hoffman.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

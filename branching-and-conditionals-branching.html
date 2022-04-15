@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Branching and Conditionals {branching} | PHP: Enough to be dangerous</title>
+  <meta name="description" content="A primer on PHP with an emphasis on building for the web." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Branching and Conditionals {branching} | PHP: Enough to be dangerous" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Branching and Conditionals {branching} | PHP: Enough to be dangerous" />
+  
+  <meta name="twitter:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+<meta name="author" content="Bryan Hoffman" />
+
+
+<meta name="date" content="2022-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="printing.html"/>
+<link rel="next" href="methods.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">A Minimal Book Example</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Prerequisites<span></span></a></li>
+<li class="chapter" data-level="2" data-path="printing.html"><a href="printing.html"><i class="fa fa-check"></i><b>2</b> Printing in the Terminal and on the Web<span></span></a></li>
+<li class="chapter" data-level="3" data-path="branching-and-conditionals-branching.html"><a href="branching-and-conditionals-branching.html"><i class="fa fa-check"></i><b>3</b> Branching and Conditionals {branching}<span></span></a></li>
+<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods<span></span></a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="methods.html"><a href="methods.html#math-example"><i class="fa fa-check"></i><b>4.1</b> math example<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications<span></span></a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one<span></span></a></li>
+<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two<span></span></a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words<span></span></a></li>
+<li><a href="references.html#references">References<span></span></a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PHP: Enough to be dangerous</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="branching-and-conditionals-branching" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Branching and Conditionals {branching}<a href="branching-and-conditionals-branching.html#branching-and-conditionals-branching" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Let’s open up our text editor and create a new file starting with “<?php" and save it to with a name like branching_example.php or similar.
+
+PHP has some __operators__, and only a few will be intuitive. When doing math, +, -, *, and / probably behave like you'd guess. There's an operator "%" called "modulo" that is really useful. If you remember remainders, the modulo operator will result in the remainder after division. For example, 7%3 is 1, because 3 goes into 7 twice with 1 as the remainder. 17%4 is also 1, and that's because 4 goes into 17 four times with 1 as the remainder. Let's say you have a variable $my_value and you want to see if it's even or odd. Another way to phrase this is: "does the number have a remainder when divided by 2?" and if the answer is "yes," that means it's odd, and if the answer is "no," that means the number is even. Let's turn this into code: 
+
+```
+<?php
+
+$my_value = 1; // is it odd or even?
+
+if($my_value%2 != 0 ) { // the number has a remainder when divided by two
+    print("It is odd!\n");
+}
+if($my_value%2 == 0 ) { // the number has no remainder when divided by two
+    print("It is even!\n");
+}
+```
+
+The first thing to note is the double slashes "////" which indicate a comment. You can write comments to clarify things for yourself and others who read your code. If you want to make a multi-line comment, use "//*" and "*//" instead of "////" like this:
+
+/*
+Here is a line
+Here's another
+Wow a third line, and it's still a single comment?
+*/
+
+You can put asterisks on the lines of your comment to make it look better, but the "/*" and the "*/" parts are all that's necessary for this to work.
+
+The second part to note is the if-statement. This lets us check if something is true and do something if it is. Here's another example:
+
+<?php
+
+$this_variable_is_false = false;
+
+if($this_variable_is_false = true) {
+    print("Will this run?\n")
+}
+
+So, what do you think? Will that print statement run? Test it out for yourself.
+
+The result might surprise you, but let me explain. In the previous example, the expression inside the if-statement's parantheses used a single equal sign "=" which is the same as what you use to assign a value to a variable. The program understands it this way, and will assign true to the variable and then the value is true and the part of the if statement inside the curly braces "{ }" is executed. To actually check if the variable is true, we use a different operator than "=" because
+that already means assigning value. Instead, we'll use a double equal sign "==" as in the even or odd example. That example also used "!=" which will return true when comparing unlike values, or in other words the values are not equal to eachother. Using "=" instead of "==" in if-statements is a potential gotcha for beginers.
+
+When a variable contains true or false, it's called a boolean. This name is an hommage to a mathematician, George Boole. If the part of the if statement in the parentheses evaluates to true or false, and if it is true, the code in the curly braces executes. Since booleans are true or false, you can write if-statements like this:
+
+<?php 
+
+$my_boolean = true;
+
+if($my_boolean) {
+    print("\$my_boolean is true!\n");
+}
+
+There are more operators like "+" and "-" for adding and subtracting numbers, but these sort of operators are for mathematics with booleans. Is false plus false, false? Let's introduce "&&" and "||" which can be read "and" and "or" respectively. And now an example with these operators in use:
+
+<?php 
+
+if(true && true) {
+    // code here will run
+}
+
+if(true && false) {
+    // code here won't run
+}
+
+if(true || true) {
+    // code here will run
+}
+
+if(true || true) {
+    // code here will run
+}
+
+An if-statement can contain another if-statement, like so:
+
+<?php 
+
+$my_integer = -27;
+$my_boolean = true;
+
+if($my_integer < 0) {
+    if($my_boolean) {
+        // do something
+    } 
+}
+
+An if-statement within another if-statement can be called a nested if-statement. In some cases you might want to use an else-statement. A simple if statement is like saying "do this under this circumstance" whereas an if-else statement is like "do this under this circumstance, otherwise do that instead." Sometimes when I'm grocery shopping I act like a program. To me, there's nothing like an avocado. I like avocados, and there's no replacement in my mind suitable for them, but they're pricey. If they're too pricey, I just don't get them. But with fruit, I like berries more than apples, but berries are usually more expensive. If berries are on sale, I'll get berries, otherwise I'll get apples. Here's how that would look as some PHP code:
+
+if($current_avocado_price < $my_max_avocado_price) {
+    // buy some avocados
+}
+
+if($blueberries_on_sale) {
+    // buy blueberries
+} else {
+    // buy a cheaper fruit
+}
+
+
+Let's start tackling a somewhat common interview challenge. Fizzbuzz is a very simple game that works for any number of players. Someone begins counting at 1, the next person increments the number and says the number unless the number is divisible by three or five. If it's divisible by three, say fizz, if it's divisible by five say buzz, if it is divisible by both, say fizzbuzz.
+
+<?php
+
+$number_to_test = 25;
+$divisible_by_three = false;
+$divisible_by_five = false;
+
+if($number_to_test % 3 == 0) {
+    $divisible_by_three = true;
+}
+
+if($number_to_test % 5 == 0) {
+    $divisible_by_five = true;
+}
+
+if($divisible_by_three && $divisible_by_five) {
+    print("fizzbuzz\n");
+}
+
+if($divisible_by_three == true && $divisible_by_five == false) {
+    print("fizz\n");
+}
+
+if($divisible_by_three == false && $divisible_by_five == true) {
+    print("buzz\n");
+}
+
+if($divisible_by_three == false && $divisible_by_five == false) {
+    print($number_to_test."\n");
+}
+
+Exercises: 
+
+1. Modify the fizzbuzz example to use if-else statements or nested if-statements. Check your edited version for correctness by trying various values (3, 17, 45, 61, &c.) and checking the output for correctness (fizz, 17, fizzbuzz, 61, &c.). As it's currently written, all six if-statements are checked everytime the program is run. You can make the program more efficient by using if-else-statements and nested if-statements and reducing how many conditions need to be checked. Thinking about efficiency won't really matter a whole lot here, but if you are one day running a program billions of times, making it run in half the time could save lots of time and money. Unlike math, correctness isn't enough. Programming challenges can often be solved in multiple ways that are equally correct. Two methods might be correct, but one might be better because it runs in less time or uses less resources.
+
+2. Using if-statements and the modulo operator, can you write a program that can tell you if a whole number from 1 to 100 is a prime number?
+
+
+<!--chapter:end:02-literature.Rmd--></p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="printing.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/03-method.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["bookdown-demo.pdf", "bookdown-demo.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

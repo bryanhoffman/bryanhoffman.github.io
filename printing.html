@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2 Printing in the Terminal and on the Web | PHP For The Web: Enough to be Dangerous</title>
+  <meta name="description" content="A primer on PHP with an emphasis on building for the web." />
+  <meta name="generator" content="bookdown 0.25 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2 Printing in the Terminal and on the Web | PHP For The Web: Enough to be Dangerous" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2 Printing in the Terminal and on the Web | PHP For The Web: Enough to be Dangerous" />
+  
+  <meta name="twitter:description" content="A primer on PHP with an emphasis on building for the web." />
+  
+
+<meta name="author" content="Bryan Hoffman" />
+
+
+<meta name="date" content="2022-01-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="branching.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">PHP For The Web</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introduction and Prerequisites<span></span></a></li>
+<li class="chapter" data-level="2" data-path="printing.html"><a href="printing.html"><i class="fa fa-check"></i><b>2</b> Printing in the Terminal and on the Web<span></span></a></li>
+<li class="chapter" data-level="3" data-path="branching.html"><a href="branching.html"><i class="fa fa-check"></i><b>3</b> Branching and Conditionals<span></span></a></li>
+<li class="chapter" data-level="4" data-path="loops.html"><a href="loops.html"><i class="fa fa-check"></i><b>4</b> Loops<span></span></a></li>
+<li class="chapter" data-level="5" data-path="functions-and-recursion.html"><a href="functions-and-recursion.html"><i class="fa fa-check"></i><b>5</b> Functions and Recursion<span></span></a></li>
+<li class="chapter" data-level="6" data-path="GET.html"><a href="GET.html"><i class="fa fa-check"></i><b>6</b> HTTP GET Variables<span></span></a></li>
+<li class="chapter" data-level="7" data-path="Forms-and-Files.html"><a href="Forms-and-Files.html"><i class="fa fa-check"></i><b>7</b> Forms and Files<span></span></a></li>
+<li class="chapter" data-level="8" data-path="SESSION.html"><a href="SESSION.html"><i class="fa fa-check"></i><b>8</b> SESSION<span></span></a></li>
+<li class="chapter" data-level="9" data-path="Next.html"><a href="Next.html"><i class="fa fa-check"></i><b>9</b> What Next?<span></span></a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">PHP For The Web: Enough to be Dangerous</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="printing" class="section level1 hasAnchor" number="2">
+<h1><span class="header-section-number">2</span> Printing in the Terminal and on the Web<a href="printing.html#printing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Let’s write some code!</p>
+<p>Open a text editor of your choice to get started. You’ll be saving files with a “.php” extension. To begin you’ll write:</p>
+<pre><code>&lt;?php</code></pre>
+<p>This signifies that there’s php code after it. If you don’t include this, things won’t work.</p>
+<p>To create a variable in PHP, you need to use the dollar sign. PHP isn’t the only language to do this, for example, Perl also prefaces variable names with a special character. Let’s <strong>declare</strong> a variable.</p>
+<pre><code>&lt;?php 
+
+$variable;</code></pre>
+<p>Now let’s <strong>initialize</strong> the same variable:</p>
+<pre><code>&lt;?php
+
+$variable;
+
+$variable = &quot;string&quot;;</code></pre>
+<p>One can combine these steps. If we declare and initialize $variable on the same line, our full code will now look something like:</p>
+<pre><code>&lt;?php
+
+$variable = &quot;string&quot;;</code></pre>
+<p>Save your file as example_0.php or something like that. Then in your terminal, type:</p>
+<p><code>&gt;php example_0.php</code></p>
+<p>Absolutely nothing should happen, but there shouldn’t be any errors. It is a working piece of code, but we’ve not told it to display anything. Let’s get it to display to the terminal by adding some more code. We need to add a print statement. Modify your file so it matches this:</p>
+<pre><code>&lt;?php
+
+$variable = &quot;string&quot;;
+
+print(&quot;The value of \$variable is: &quot;.$variable.&quot;\n&quot;);</code></pre>
+<p>There’s a lot going on here. The first thing to note is that the period “.” is like a plus sign for strings. Gluing strings together is called <strong>concatenation</strong>. The backslash “\” before the first instance of $variable is called an <strong>escape character</strong>. Without it, the program would print “The value of string is: string” not “The value of $variable is: string” and I wanted to have it print “$variable” literally. Using single quotes would have worked as well but if I had ran:</p>
+<pre><code>&lt;?php
+
+$variable = &quot;string&quot;;
+
+print(&#39;The value of $variable is: &#39;.$variable.&#39;\n&#39;);</code></pre>
+<p>The “\n” in single quotes would’ve come out as “\n” literally, and I didn’t want that. I included the “\n” to print a new line. In the terminal, this will make things look a lot nicer.</p>
+<p>You can very easily print to the web instead and with no modifications to the code that’s already writing to the terminal. Instead of running it with the command:</p>
+<p><code>&gt;php example_0.php</code></p>
+<p>Run:</p>
+<p><code>&gt;php -S localhost:8080 example_0.php</code></p>
+<p>and using a browser of your choice, navigate to: <a href="http://localhost:8080/" class="uri">http://localhost:8080/</a> and you’ll see the message printed in the browser instead of the terminal. How easy was that!?</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="branching.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["PHP For The Web: Enough to be Dangerous by Bryan Hoffman.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>
